@@ -1,8 +1,6 @@
 global using System;
 global using System.Data;
 global using System.Collections.Generic;
-global using System.IO;
-global using System.Linq;
 
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc;
@@ -14,3 +12,4 @@ global using CodeWorks.Utils;
 global using AllSpiceSharp.Repositories;
 global using AllSpiceSharp.Services;
 global using AllSpiceSharp.Models;
+global using AllSpiceSharp.Interfaces;
