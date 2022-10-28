@@ -33,6 +33,17 @@ public class Startup
 
     services.AddScoped<AccountsRepository>();
     services.AddScoped<AccountService>();
+
+    services.AddTransient<RecipesRepository>();
+    services.AddTransient<RecipesService>();
+
+    services.AddTransient<IngredientsService>();
+    services.AddTransient<IngredientsRepository>();
+
+    services.AddTransient<FavoritesService>();
+    services.AddTransient<FavoritesRepository>();
+
+    services.AddTransient<BaseRepository>();
   }
 
   private void ConfigureCors(IServiceCollection services)

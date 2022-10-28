@@ -8,7 +8,8 @@ public class Recipe : IRepoItem<int>
   public string Title { get; set; }
   public string Instructions { get; set; }
   public string Img { get; set; }
-  public string category { get; set; }
-  public string creatorId { get; set; }
+  public string Category { get; set; }
+  public string CreatorId { get; set; }
   public Profile Creator { get; set; }
+  public int FavoriteCount { get; set; }
 }
