@@ -1,23 +1,37 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img
-        src="https://bcw.blob.core.windows.net/public/img/8600856373152463"
-        alt="CodeWorks Logo"
-        class="rounded-circle"
-      >
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
-    </div>
+  <div class="row m-2">
+    <RecipeCard v-for="r in recipes" :recipe="r" :key="r.id" />
   </div>
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
+import { onMounted } from "vue";
+import { AppState } from "../AppState.js";
+import RecipeCard from "../components/RecipeCard.vue";
+import { recipesService } from "../services/RecipesService.js";
+import Pop from "../utils/Pop.js";
+
 export default {
   setup() {
-    return {}
-  }
+    async function getAllRecipes() {
+      try {
+        const recipes = await recipesService.getAllRecipes();
+        return recipes;
+      }
+      catch (error) {
+        console.error(error);
+        Pop.error(error);
+      }
+    }
+    onMounted(() => {
+      getAllRecipes();
+    });
+    return {
+      recipes: computed(() => AppState.recipes)
+    };
+  },
+  components: { RecipeCard }
 }
 </script>
 
