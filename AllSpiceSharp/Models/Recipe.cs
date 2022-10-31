@@ -12,4 +12,5 @@ public class Recipe : IRepoItem<int>
   public string CreatorId { get; set; }
   public Profile Creator { get; set; }
   public int FavoriteCount { get; set; }
+  public bool Favorited { get; set; }
 }

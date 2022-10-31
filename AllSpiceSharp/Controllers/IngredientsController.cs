@@ -13,6 +13,22 @@ public class IngredientsController : ControllerBase
     _is = @is;
   }
 
+  [HttpGet("{ingredientId}")]
+  [Authorize]
+  public ActionResult<Ingredient> GetIngredientById(int ingredientId)
+  {
+    try
+    {
+      Ingredient ingredient = _is.GetIngredientById(ingredientId);
+      return Ok(ingredient);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+
   [HttpPost]
   [Authorize]
   public ActionResult<Ingredient> CreateIngredient([FromBody] Ingredient newIngredient)
@@ -21,6 +37,22 @@ public class IngredientsController : ControllerBase
     {
       Ingredient createdIngredient = _is.CreateIngredient(newIngredient);
       return Ok(createdIngredient);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+  [HttpDelete("{ingredientId}")]
+  [Authorize]
+  public async Task<ActionResult<Ingredient>> RemoveIngredient(int ingredientId)
+  {
+    try
+    {
+      Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+      _is.RemoveIngredient(ingredientId, userInfo.Id);
+      return Ok("Ingredient Deleted");
     }
     catch (Exception e)
     {

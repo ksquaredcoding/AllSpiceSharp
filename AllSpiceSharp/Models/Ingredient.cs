@@ -8,4 +8,5 @@ public class Ingredient : IRepoItem<int>
   public string Name { get; set; }
   public string Quantity { get; set; }
   public int RecipeId { get; set; }
+  public Recipe Recipe { get; set; }
 }

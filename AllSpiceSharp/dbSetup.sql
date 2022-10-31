@@ -39,8 +39,13 @@ CREATE TABLE
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
-        name VARCHAR(255) NOT NULL,
         accountId VARCHAR(255) NOT NULL REFERENCES accounts(id),
         recipeId INT NOT NULL,
         FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
+
+DROP TABLE favorites;
+
+DROP TABLE ingredients;
+
+DROP TABLE recipes;
