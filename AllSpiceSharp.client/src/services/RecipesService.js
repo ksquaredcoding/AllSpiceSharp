@@ -8,6 +8,12 @@ class RecipesService {
     AppState.recipes = res.data.map(r => new Recipe(r))
     console.log(AppState.recipes);
   }
+
+  setActiveRecipe(recipeId) {
+    AppState.activeRecipe = null
+    AppState.activeRecipe = AppState.recipes.find(r => r.id == recipeId)
+  }
+
 }
 
 export const recipesService = new RecipesService()
