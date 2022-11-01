@@ -1,13 +1,12 @@
 <template>
   <div class="row m-2">
-    <RecipeCard v-for="r in recipes" :recipe="r" :key="r.id" data-bs-toggle="modal" data-bs-target="#recipeModal"
-      class="selectable" @click="setActiveRecipe(r.id)" />
+    <RecipeCard v-for="r in recipes" :recipe="r" :key="r.id" />
   </div>
   <RecipeModal />
-  <!-- TODO change where to click to bring up modal -->
 </template>
 
 <script>
+import { onAuthLoaded } from "@bcwdev/auth0provider-client";
 import { computed } from "@vue/reactivity";
 import { onMounted, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
@@ -42,16 +41,11 @@ export default {
     onMounted(() => {
       getAllRecipes();
     });
-    watchEffect(() => {
-      if (AppState.account?.email) {
-        getFavorites()
-      }
+    onAuthLoaded(() => {
+      getFavorites()
     })
     return {
       recipes: computed(() => AppState.recipes),
-      setActiveRecipe(recipeId) {
-        recipesService.setActiveRecipe(recipeId)
-      }
     };
   },
   components: { RecipeCard, RecipeModal }

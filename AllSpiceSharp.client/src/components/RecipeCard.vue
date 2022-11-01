@@ -5,13 +5,15 @@
         <p class="read-bgrd recipe-text fs-5"><b>{{ recipe?.category }}</b></p>
       </div>
       <div v-if="favorited" class="read-bgrd fs-5 recipe-text selectable" @click="changeFav(recipe?.id)"><i
-          class="bi bi-heart-fill"></i></div>
+          class="bi bi-heart-fill"></i>
+      </div>
       <div v-else class="read-bgrd fs-5 recipe-text selectable" @click="changeFav(recipe?.id)"><i
           class="bi bi-heart"></i>
       </div>
     </div>
     <div class="row">
-      <h4 class="read-bgrd recipe-text">{{ recipe?.title }}</h4>
+      <h4 class="read-bgrd recipe-text selectable" @click="setActiveRecipe(recipe?.id)" data-bs-toggle="modal"
+        data-bs-target="#recipeModal">{{ recipe?.title }}</h4>
     </div>
   </div>
 </template>
@@ -22,6 +24,7 @@ import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState.js";
 import { Recipe } from "../models/Recipe.js";
 import { favoritesService } from "../services/FavoritesService.js";
+import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
 
 export default {
@@ -38,6 +41,9 @@ export default {
           console.error('[(UN)FAVORITE RECIPE]', error)
           Pop.error(error.message)
         }
+      },
+      setActiveRecipe(recipeId) {
+        recipesService.setActiveRecipe(recipeId)
       },
       favorited: computed(() => AppState.favRecipes.find(f => f.recipeId == props.recipe.id))
     }

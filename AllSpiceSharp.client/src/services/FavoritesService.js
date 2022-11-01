@@ -6,9 +6,7 @@ import { api } from "./AxiosService.js"
 class FavoritesService {
   async getFavorites() {
     const res = await api.get("/account/favorites")
-    console.log(res.data);
     AppState.favRecipes = res.data.map(f => new FavRecipe(f));
-    console.log("0000", AppState.favRecipes);
   }
 
   async changeFav(recipeId) {
